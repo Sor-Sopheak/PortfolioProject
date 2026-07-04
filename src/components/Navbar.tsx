@@ -6,16 +6,25 @@ import Drawer from "./Drawer";
 import Logo from "./Logo";
 
 const navLinks: NavItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Project", href: "#project" },
-  { label: "Skill", href: "#skill" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "home" },
+  { label: "About", href: "about" },
+  { label: "Project", href: "project" },
+  { label: "Skill", href: "skill" },
+  { label: "Experience", href: "experience" },
+  { label: "Contact", href: "contact" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("home");
+
+  const handleNavClick = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    setActiveLink(id);
+    const el = document.getElementById(id);
+    el?.scrollIntoView({ behavior: "smooth" });
+    window.history.replaceState(null, "", `${id}`);
+  };
 
   return (
     <header className="fixed top-0 left-0 z-50 h-20 w-full bg-bg-white border-b border-stroke-white bg-custom-white text-black-main shadow-sm">
@@ -24,18 +33,23 @@ export default function Navbar() {
           <Logo />
           <div className="hidden sm:block h-10 border-l border-green-primary"></div>
         </div>
-        <div className="hidden md:flex gap-8 text-xl font-medium font-navbar font-text-text-primary">
+        <div className="hidden md:flex gap-8 text-xl font-medium font-navbar text-black-main">
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
-              className="transition-colors duration-200 hover:text-green-primary"
+              href={`#${link.href}`}
+              onClick={(e) => handleNavClick(e, link.href)}
+              className={`transition-colors duration-200 hover:text-green-primary ${
+                activeLink === link.href
+                  ? "text-green-primary font-semibold"
+                  : ""
+              }`}
             >
               {link.label}
             </a>
           ))}
         </div>
-        <div className="hidden  md:flex">
+        <div className="hidden md:flex">
           <Button
             label="Contact me"
             variant="secondary"
@@ -59,11 +73,19 @@ export default function Navbar() {
       <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="flex flex-col text-xl font-navbar">
           {navLinks.map((link) => (
-            <div key={link.href} className="hover:bg-green-primary transition-colors duration-200">
+            <div
+              key={link.href}
+              className="hover:bg-green-primary transition-colors duration-200"
+            >
               <a
-                key={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block w-full px-4 py-3 hover:text-white"
+                href={`#${link.href}`}
+                onClick={(e) => {
+                  handleNavClick(e, link.href);
+                  setIsOpen(false);
+                }}
+                className={`block w-full px-4 py-3 hover:text-white ${
+                  activeLink === link.href ? "bg-green-primary text-white" : ""
+                }`}
               >
                 {link.label}
               </a>
