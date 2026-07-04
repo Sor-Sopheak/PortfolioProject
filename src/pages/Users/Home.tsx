@@ -3,7 +3,7 @@ import Button from "../../components/Button";
 export default function Home() {
     return (
         <main>
-            <div className="bg-bg-secondary">
+            <div className="bg-grey-secondary">
                 
             </div>
         </main>

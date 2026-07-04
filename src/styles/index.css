@@ -2,14 +2,13 @@
 
 @theme {
   /* Colors */
-  --color-bg-primary: #145016;
-  --color-bg-secondary: #ECEFF3;
+  --color-green-primary: #145016;
+  --color-grey-secondary: #ECEFF3;
   --color-bg-white: #ffffff;
   --color-stroke-white: #E9EAEF;
-  --color-text-main: #1E1E1E;
+  --color-black-main: #1E1E1E;
   --color-text-muted: #3C3C43;
-  --color-text-title: #145016;
-  --color-text-behide-title: #ECEFF3;
+  --color-text-behind-title: #ECEFF3;
   --color-text-white: #ffffff;
 
   /* Fonts*/
